@@ -14,14 +14,12 @@ class Transformation:
 
 			self.data = extractObj.getAPISData(dataSet)
 			funcName = dataSource+dataSet
-
 			getattr(self,funcName)()
 
 		elif dataSource == 'csv':
 
 			self.data = extractObj.getAPISData(dataSet)
 			funcName = dataSource+dataSet
-
 			getattr(self,funcName)()
 
 		else: print('Unkonwn Data Source !! Try again...')
@@ -42,9 +40,24 @@ class Transformation:
 				air_list.append(air_dict)
 
 		air_df = pd.DataFrame(air_list,columns=air_dict.keys())
-		air_df.to_csv('Air Quality.csv')
+		# air_df.to_csv('Air Quality.csv')
 
-		
+	def apiEconomy(self):
+		economy_data = self.data['records']
+		# print(economy_data)
+		economy_list=[]
+		for record in economy_data:
+			economy_dict={}
+			economy_dict['financial_year'] = record['financial_year']
+			economy_dict['gross_domestic_product'] = record['gross_domestic_product_in_rs_cr_at_2004_05_prices']
+			economy_dict['industry_growth_rate'] = record['industry___growth_rate_yoy_']
+			economy_dict['services_growth_rate'] = record['services___growth_rate_yoy_']
 
+			economy_list.append(economy_dict)
+		economy_df = pd.DataFrame(economy_list,columns = economy_dict.keys())
+		economy_df.to_csv('Economy data.csv')
+
+
+Transformation('api','Economy')
 Transformation('api','Pollution')  #test run
 
