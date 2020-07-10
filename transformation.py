@@ -18,7 +18,7 @@ class Transformation:
 
 		elif dataSource == 'csv':
 
-			self.data = extractObj.getAPISData(dataSet)
+			self.data = extractObj.getCSVData(dataSet)
 			funcName = dataSource+dataSet
 			getattr(self,funcName)()
 
@@ -57,7 +57,16 @@ class Transformation:
 		economy_df = pd.DataFrame(economy_list,columns = economy_dict.keys())
 		economy_df.to_csv('Economy data.csv')
 
+	def csvCryptoMarket(self):
 
-Transformation('api','Economy')
-Transformation('api','Pollution')  #test run
+		self.data['open'] = self.data['open'].apply(lambda x:x*0.75)
+		self.data['low'] = self.data['low'].apply(lambda x:x*0.75)
+		self.data['high'] = self.data['high'].apply(lambda x:x*0.75)
+		self.data['close'] = self.data['close'].apply(lambda x:x*0.75)
+
+		self.data.to_csv('Crypto.csv')
+
+Transformation('csv','CryptoMarket')
+# Transformation('api','Economy')
+# Transformation('api','Pollution')  #test run
 
