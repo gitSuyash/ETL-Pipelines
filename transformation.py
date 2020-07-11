@@ -40,11 +40,11 @@ class Transformation:
 				air_list.append(air_dict)
 
 		air_df = pd.DataFrame(air_list,columns=air_dict.keys())
-		# air_df.to_csv('Air Quality.csv')
+		air_df.to_csv('Air Quality.csv')
 
 	def apiEconomy(self):
 		economy_data = self.data['records']
-		# print(economy_data)
+	
 		economy_list=[]
 		for record in economy_data:
 			economy_dict={}
@@ -67,6 +67,6 @@ class Transformation:
 		self.data.to_csv('Crypto.csv')
 
 Transformation('csv','CryptoMarket')
-# Transformation('api','Economy')
-# Transformation('api','Pollution')  #test run
+Transformation('api','Economy')
+Transformation('api','Pollution')  #test run
 
